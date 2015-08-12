@@ -1,0 +1,36 @@
+
+
+{% extends 'base.html.twig' %}
+{% block body -%}
+    {% block nav %}{{ parent() }}  {% endblock %}
+    {% block header %}
+
+        {{ parent() }}
+    {% endblock %}
+    <div class="container">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <h1>Suggest  news</h1>
+
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.title, { 'attr': {'class': 'form-control'}}) }}
+            {{ form_row(form.content, {'attr': {'class': 'form-control', 'rows': '5'}}) }}
+            {{ form_row(form.file) }}
+            <p>
+                {{ form_row(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+            </p>
+            {{ form_end(form) }}
+            <ul class="pager">
+                <li >
+                    <a href="{{ path('suggestion') }}">
+                        Back to the list
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <hr>
+    {% block footer %} {{ parent() }} {% endblock  %}
+    {% block javascript %} {{ parent() }} {% endblock %}
+{% endblock %}
+

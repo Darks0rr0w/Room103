@@ -1,0 +1,59 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Suggestion</h1>
+    {% if entity.path is not null %}
+        <img style="width: 512px;height 512px;" src="{{ asset('uploads/images/' ~ entity.path) }}" />
+    {% endif %}
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ entity.content }}</td>
+            </tr>
+            <tr>
+                <th>Slug</th>
+                <td>{{ entity.slug }}</td>
+            </tr>
+            <tr>
+                <th>Path</th>
+                <td>{{ entity.path }}</td>
+            </tr>
+            <tr>
+                <th>Created_at</th>
+                <td>{{ entity.createdat|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Updated_at</th>
+                <td>{{ entity.updatedat|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('suggestion') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('suggestion_edit', { 'slug': entity.slug }) }}">
+            Edit
+        </a>
+    </li>
+            <li>
+                <a href="{{ path('suggestion_publish', { 'slug': entity.slug }) }}">
+                    Publish
+                </a>
+            </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

@@ -1,0 +1,39 @@
+App\Room103Bundle\Entity\Suggestion:
+  type: entity
+  repositoryClass: App\Room103Bundle\Repository\SuggestionRepository
+  table: suggestion
+  id:
+    id:
+      type: integer
+      generator: {strategy: AUTO }
+  fields:
+    title:
+      type: string
+      length: 255
+      nullable: false
+    content:
+      type: text
+    slug:
+      type: string
+      length: 255
+      unique: true
+    path:
+      type: string
+      length: 255
+      nullable: true
+    created_at:
+      type: datetime
+    updated_at:
+      type: datetime
+      nullable: true
+  lifecycleCallbacks:
+    prePersist: [setCreatedAtValue, setSlugValue]
+    preUpdate: [setUpdatedAtValue, setSlugValue]
+
+
+
+
+
+
+
+

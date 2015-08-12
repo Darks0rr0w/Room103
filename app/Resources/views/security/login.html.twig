@@ -1,0 +1,55 @@
+
+{% extends 'base.html.twig' %}
+{% block body -%}
+    {% block nav %}{{ parent() }}  {% endblock %}
+    {% block header %} {{ parent() }}  {% endblock %}
+    <div class="container">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="panel panel-info" >
+                <div class="panel-heading">
+                    <div class="panel-title">Sign In</div>
+                </div>
+                {% if error %}
+                    <div align="center" class="alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                <div style="padding-top:30px" class="panel-body" >
+
+                    <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+                    <form id="loginform" class="form-horizontal" role="form" method="post" action="{{ path('login_check') }}">
+
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            <input id="username" type="text" class="form-control" name="_username" value="{{ last_username }}" placeholder="username or email">
+                        </div>
+
+                        <div style="margin-bottom: 25px" class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            <input id="password" type="password" class="form-control" name="_password" placeholder="password">
+                        </div>
+
+                        <div style="margin-top:10px" class="form-group">
+                        <input type="hidden" name="_target_path" value="/news" />
+                            <!-- Button -->
+
+                            <div class="col-sm-12 controls">
+                                <button type="submit" id="btn-login" name ="login" class="btn btn-success">Login  </button>
+
+
+                            </div>
+                        </div>
+
+
+
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {% block footer %} {{ parent() }} {% endblock  %}
+    {% block javascript %} {{ parent() }} {% endblock %}
+{% endblock %}

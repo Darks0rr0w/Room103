@@ -1,0 +1,12 @@
+logout:
+    path: /logout
+app_room103:
+    resource: "@AppRoom103Bundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+

@@ -1,0 +1,21 @@
+App\Room103Bundle\Entity\Comment:
+      type: entity
+      repositoryClass: App\Room103Bundle\Repository\CommentRepository
+      table: comment
+      id:
+        id:
+          type: integer
+          generator: {strategy: AUTO }
+      fields:
+        content:
+          type: text
+        created_at:
+          type: datetime
+        updated_at:
+          type: datetime
+      manyToOne:
+        post:
+          targetEntity: Post
+          mappedBy: posts
+      lifecycleCallbacks:
+        prePersist: [setCreatedAtValue]

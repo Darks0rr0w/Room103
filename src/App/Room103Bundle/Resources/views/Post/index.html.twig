@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block body -%}
+    {% block nav %}{{ parent() }}{% endblock %}
+    {% block header %}
+        <header class="intro-header" style="background-image: url('/images/home-bg.jpg')">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="site-heading">
+                            <h1>103 Room</h1>
+                            <hr class="small">
+                            <span class="subheading">Room 103 Website</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    {% endblock %}
+
+    <!-- Navigation -->
+
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+
+
+    <!-- Main Content -->
+    {% block content %}
+    <div class="container">
+        {% for entity in entities %}
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-preview">
+                        <a href="{{ path('news_show', { 'slug': entity.slug }) }}">
+                            <h2 class="post-title">
+                                {{  entity.title  }}
+                            </h2>
+                            <h3 class="post-subtitle">
+                                {{ entity.content }}
+                            </h3>
+                        </a>
+                        <p class="post-meta">Posted by <a href="#">Room 103 </a>Created at {{ entity.createdat | date('Y-m-d H:i:s')  }}</p>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        {% endfor %}
+        {% endblock %}
+
+        <a style="align-content: center" href="{{ path('suggestion_new') }}">
+            Suggest news
+        </a>
+
+
+
+        <!-- Pager -->
+        <ul class="pager">
+            <li class="next">
+                <a href="#">Older Posts →</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <hr>
+
+    {% block footer %}{{ parent() }} {% endblock %}
+
+
+    {% block javascript  %} {{ parent() }} {% endblock %}
+
+
+
+
+{% endblock %}

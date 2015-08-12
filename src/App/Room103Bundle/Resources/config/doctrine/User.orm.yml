@@ -1,0 +1,30 @@
+App\Room103Bundle\Entity\User:
+  type: entity
+  repositoryClass: App\Room103Bundle\Repository\UserRepository
+  table: user
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+      username:
+        type: string
+        length: 256
+        nullable: false
+      password:
+          type: string
+          length: 60
+          nullable: false
+      email:
+        type: string
+        length: 256
+        nullable: false
+      isActive:
+        type: boolean
+  oneToMany:
+      posts:
+        targetEntity: Post
+        mappedBy: user
+      comments:
+        targetEntity: Comment
+        mappedBy: user
