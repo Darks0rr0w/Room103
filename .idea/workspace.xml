@@ -2,18 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ba62e09a-1d87-4c0b-a03e-5377fdb86bba" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/App/Room103Bundle/Resources/views/Post/suggested.html.twig" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/App/Room103Bundle/Controller/SuggestionController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/App/Room103Bundle/Resources/config/doctrine/Suggestion.orm.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/App/Room103Bundle/Resources/views/Suggestion/edit.html.twig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/App/Room103Bundle/Resources/views/Suggestion/index.html.twig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/App/Room103Bundle/Resources/views/Suggestion/new.html.twig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/App/Room103Bundle/Resources/views/Suggestion/show.html.twig" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App/Room103Bundle/Resources/config/doctrine/Post.orm.yml" afterPath="$PROJECT_DIR$/src/App/Room103Bundle/Resources/config/doctrine/Post.orm.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App/Room103Bundle/Entity/Post.php" afterPath="$PROJECT_DIR$/src/App/Room103Bundle/Entity/Post.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App/Room103Bundle/Controller/PostController.php" afterPath="$PROJECT_DIR$/src/App/Room103Bundle/Controller/PostController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App/Room103Bundle/Resources/views/Post/index.html.twig" afterPath="$PROJECT_DIR$/src/App/Room103Bundle/Resources/views/Post/index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App/Room103Bundle/Resources/views/Post/show.html.twig" afterPath="$PROJECT_DIR$/src/App/Room103Bundle/Resources/views/Post/show.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Room103.iws" />
@@ -113,7 +101,7 @@
       <file leaf-file-name="index.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App/Room103Bundle/Resources/views/Post/index.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5827703">
+            <state vertical-scroll-proportion="0.8868243">
               <caret line="50" column="66" selection-start-line="50" selection-start-column="66" selection-end-line="50" selection-end-column="66" />
               <folding />
             </state>
@@ -795,7 +783,13 @@
       <option name="project" value="LOCAL" />
       <updated>1439392073728</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="initial commit&#10;">
+      <created>1439396294756</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1439396294756</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1210,7 +1204,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App/Room103Bundle/Resources/views/Post/index.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5827703">
+        <state vertical-scroll-proportion="0.8868243">
           <caret line="50" column="66" selection-start-line="50" selection-start-column="66" selection-end-line="50" selection-end-column="66" />
           <folding />
         </state>
