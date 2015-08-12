@@ -30,6 +30,15 @@
                     Back to the list
                 </a>
             </li>
+            {% if entity.published == 0 %}
+            <li>
+
+                <a href="{{ path('news_publish', { 'slug': entity.slug }) }}">
+                    Publish
+                </a>
+
+            </li>
+            {% endif %}
             <li>
                 <a href="{{ path('news_edit', { 'slug': entity.slug }) }}">
                     Edit

@@ -27,7 +27,7 @@
 
     <!-- Main Content -->
     {% block content %}
-    <div class="container">
+        <div class="container">
         {% for entity in entities %}
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -46,20 +46,20 @@
                 </div>
             </div>
         {% endfor %}
-        {% endblock %}
+    {% endblock %}
 
-        <a style="align-content: center" href="{{   path('news_new') }}">
-            Suggest news
-        </a>
+    <a style="align-content: center" href="{! path('suggestion_new') !}">
+        Suggest news
+    </a>
 
 
 
-        <!-- Pager -->
-        <ul class="pager">
-            <li class="next">
-                <a href="#">Older Posts →</a>
-            </li>
-        </ul>
+    <!-- Pager -->
+    <ul class="pager">
+        <li class="next">
+            <a href="#">Older Posts →</a>
+        </li>
+    </ul>
     </div>
 
 

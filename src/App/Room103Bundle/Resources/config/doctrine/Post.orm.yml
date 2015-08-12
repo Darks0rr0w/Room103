@@ -21,6 +21,10 @@ App\Room103Bundle\Entity\Post:
       type: string
       length: 255
       nullable: true
+    published:
+      type: boolean
+      nullable: true
+      default: 0
     created_at:
       type: datetime
     updated_at:

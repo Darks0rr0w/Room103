@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Room103Bundle\Entity\Post;
 use App\Room103Bundle\Form\PostType;
 
@@ -29,12 +30,30 @@ class PostController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('AppRoom103Bundle:Post')->findAll();
+        $entities = $em->getRepository('AppRoom103Bundle:Post')->findBy(['published' => 1]);
 
         return array(
             'entities' => $entities,
         );
     }
+
+    /**
+     * @Route("/suggested", name="news_suggested")
+     * @Method("GET")
+     * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function suggestedAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('AppRoom103Bundle:Post')->findBy(['published' => null]);
+
+        return array(
+            'entities' => $entities,
+        );
+    }
+
     /**
      * Creates a new Post entity.
      *
@@ -59,7 +78,7 @@ class PostController extends Controller
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -77,8 +96,6 @@ class PostController extends Controller
             'method' => 'POST',
         ));
 
-       // $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
@@ -88,17 +105,39 @@ class PostController extends Controller
      * @Route("/new", name="news_new")
      * @Method("GET")
      * @Template()
+     *
      */
     public function newAction()
     {
         $entity = new Post();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
+
+    /**
+     * Publish new post
+     * @Route("/{slug}/publish", name="news_publish")
+     * @Method("GET")
+     * @Template()
+     */
+    public function publishAction($slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('AppRoom103Bundle:Post')->findOneBySlug($slug);
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Post entity.');
+        }
+        $entity->setPublished(1);
+        $em->flush();
+        return $this->redirect($this->generateUrl('news'));
+    }
+
+
 
     /**
      * Finds and displays a Post entity.
@@ -116,6 +155,9 @@ class PostController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
+        if ($entity->getPublished() == 0){
+            $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+        }
 
         $deleteForm = $this->createDeleteForm($slug);
 
@@ -131,6 +173,7 @@ class PostController extends Controller
      * @Route("/{slug}/edit", name="news_edit")
      * @Method("GET")
      * @Template()
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction($slug)
     {
@@ -152,6 +195,8 @@ class PostController extends Controller
         );
     }
 
+
+
     /**
     * Creates a form to edit a Post entity.
     *
@@ -162,7 +207,7 @@ class PostController extends Controller
     private function createEditForm(Post $entity)
     {
         $form = $this->createForm(new PostType(), $entity, array(
-            'action' => $this->generateUrl('news_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('news_update', array('slug' => $entity->getSlug())),
             'method' => 'PUT',
         ));
 
@@ -194,7 +239,7 @@ class PostController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('news_edit', array('slug' => $slug)));
+            return $this->redirect($this->generateUrl('news'));
         }
 
         return array(

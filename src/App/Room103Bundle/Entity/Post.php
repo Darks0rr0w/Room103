@@ -418,4 +418,32 @@ class Post
 
 
 
+    /**
+     * @var boolean
+     */
+    private $published;
+
+
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     * @return Post
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean 
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
 }
