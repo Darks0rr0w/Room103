@@ -9,16 +9,18 @@ App\Room103Bundle\Entity\User:
   fields:
       username:
         type: string
-        length: 256
+        length: 25
         nullable: false
+        unique: true
       password:
           type: string
-          length: 60
+          length: 64
           nullable: false
       email:
         type: string
-        length: 256
+        length: 60
         nullable: false
+        unique: true
       isActive:
         type: boolean
   oneToMany:

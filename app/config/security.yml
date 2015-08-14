@@ -3,9 +3,18 @@
 security:
     encoders:
             Symfony\Component\Security\Core\User\User: plaintext
+            App\Room103Bundle\Entity\User: plaintext
+
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
+        our_db_provider:
+          entity:
+            class: AppRoom103Bundle:User
+            property: username
+                    # if you're using multiple entity managers
+                    # manager_name: customer
+
         in_memory:
             memory:
                 users:

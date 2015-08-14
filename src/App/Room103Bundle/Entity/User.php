@@ -3,11 +3,14 @@
 namespace App\Room103Bundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+
 
 /**
  * User
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -34,6 +37,8 @@ class User
      */
     private $isActive;
 
+
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -44,14 +49,36 @@ class User
      */
     private $comments;
 
+
     /**
      * Constructor
      */
     public function __construct()
     {
+        $this->isActive = true;
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+
+
+
 
     /**
      * Get id
@@ -62,6 +89,8 @@ class User
     {
         return $this->id;
     }
+
+
 
     /**
      * Set username
@@ -102,7 +131,7 @@ class User
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -220,4 +249,5 @@ class User
     {
         return $this->comments;
     }
+
 }

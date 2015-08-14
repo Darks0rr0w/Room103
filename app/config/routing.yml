@@ -9,4 +9,10 @@ app_room103:
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+account_register:
+    path:     /register
+    defaults: { _controller: AppRoom103Bundle:Account:register }
 
+account_create:
+    path:     /register/create
+    defaults: { _controller: AppRoom103Bundle:Account:create }
