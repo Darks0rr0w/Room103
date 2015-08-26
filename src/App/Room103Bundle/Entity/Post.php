@@ -194,6 +194,7 @@ class Post
     public function addComment(\App\Room103Bundle\Entity\Comment $comments)
     {
         $this->comments[] = $comments;
+        $comments->setPost($this);
 
         return $this;
     }

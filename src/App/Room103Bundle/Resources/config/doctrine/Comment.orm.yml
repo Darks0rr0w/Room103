@@ -18,4 +18,4 @@ App\Room103Bundle\Entity\Comment:
           targetEntity: Post
           mappedBy: posts
       lifecycleCallbacks:
-        prePersist: [setCreatedAtValue]
+        prePersist: [setCreatedAtValue, setUpdatedAtValue]

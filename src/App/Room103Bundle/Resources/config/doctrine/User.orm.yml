@@ -23,6 +23,11 @@ App\Room103Bundle\Entity\User:
         unique: true
       isActive:
         type: boolean
+      roles:
+        type: string
+        length: 60
+        nullable: false
+        default: 'ROLE_USER'
   oneToMany:
       posts:
         targetEntity: Post
@@ -30,3 +35,5 @@ App\Room103Bundle\Entity\User:
       comments:
         targetEntity: Comment
         mappedBy: user
+  lifecycleCallbacks:
+    prePersist: [setRolesValue]

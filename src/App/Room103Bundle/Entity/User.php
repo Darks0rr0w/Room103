@@ -73,7 +73,7 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return array($this->roles);
     }
 
 
@@ -250,4 +250,39 @@ class User implements UserInterface
         return $this->comments;
     }
 
+    /**
+     * @var string
+     */
+    
+    /**
+     * @var string
+     */
+    private $roles;
+
+
+    /**
+     * Set roles
+     *
+     * @param string $roles
+     * @return User
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setRolesValue()
+    {
+        if ($this->getUsername() == 'admin')
+        {
+            $this->setRoles('ROLE_ADMIN');
+        } else {
+            $this->setRoles('ROLE_USER');
+        }
+    }
 }

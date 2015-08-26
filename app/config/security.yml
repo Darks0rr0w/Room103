@@ -14,7 +14,6 @@ security:
             property: username
                     # if you're using multiple entity managers
                     # manager_name: customer
-
         in_memory:
             memory:
                 users:

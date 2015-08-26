@@ -9,8 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use App\Room103Bundle\Entity\Post;
-use App\Room103Bundle\Form\PostType;
-
+use App\Room103Bundle\Form\Type\PostType;
+use App\Room103Bundle\Entity\Comment;
+use App\Room103Bundle\Form\Type\CommentType;
 /**
  * Post controller.
  *
@@ -73,7 +74,7 @@ class PostController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('news_show', array('slug' => $entity->getSlug())));
+            return $this->redirect($this->generateUrl('news'));
         }
 
         return array(
@@ -81,6 +82,8 @@ class PostController extends Controller
             'form' => $form->createView(),
         );
     }
+
+
 
     /**
      * Creates a form to create a Post entity.
@@ -151,7 +154,7 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('AppRoom103Bundle:Post')->findOneBySlug($slug);
-
+        $comments = $entity->getComments();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
@@ -159,11 +162,17 @@ class PostController extends Controller
             $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
         }
 
+        $comment = new Comment();
+
         $deleteForm = $this->createDeleteForm($slug);
+        $commentForm = $this->createCommentForm($comment, $slug);
+
 
         return array(
+            'comments' => $comments,
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
+            'comment_form' => $commentForm->createView(),
         );
     }
 
@@ -216,6 +225,62 @@ class PostController extends Controller
         return $form;
     }
     /**
+     * Edits an existing Comment entity.
+     *
+     * @Route("/comment/{slug}", name="comment_create")
+     * @Method("POST")
+     * @Template()
+     *
+     */
+    public function newCommentAction(Request $request, $slug)
+    {
+
+        $comment = new Comment();
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppRoom103Bundle:Post')->findOneBySlug($slug);
+
+        $form = $this->createCommentForm($comment, $slug);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $comment->setPost($entity);
+            $em->persist($comment);
+
+            $em->flush();
+            return $this->redirect($this->generateUrl('news'));
+        }
+
+        return array(
+            'comment' => $comment,
+            'form' => $form->createView(),
+        );
+    }
+    /**
+     * Creates a form to edit a Comment entity.
+     *
+     * @param Comment $comment The comment
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+
+    private function createCommentForm(Comment $comment, $slug)
+    {
+        $form = $this->createForm(new CommentType(), $comment, array(
+            'action' => $this->generateUrl('comment_create', array('slug' => $slug)),
+            'method' => 'POST',
+        ) );
+
+
+        $form->add('submit', 'submit', array('label' => 'Submit'));
+
+
+        return $form;
+
+
+    }
+    /**
      * Edits an existing Post entity.
      *
      * @Route("/{slug}", name="news_update")
@@ -253,6 +318,7 @@ class PostController extends Controller
      *
      * @Route("/{slug}", name="news_delete")
      * @Method("DELETE")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request, $slug)
     {

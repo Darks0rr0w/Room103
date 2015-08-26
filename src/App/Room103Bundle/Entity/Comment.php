@@ -141,6 +141,14 @@ class Comment
      */
     public function setCreatedAtValue()
     {
-        // Add your code here
+        return $this->created_at = new \DateTime();
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setUpdatedAtValue()
+    {
+        return $this->updated_at = new \DateTime();
     }
 }
