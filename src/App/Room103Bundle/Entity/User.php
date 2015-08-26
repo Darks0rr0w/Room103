@@ -278,6 +278,7 @@ class User implements UserInterface
      */
     public function setRolesValue()
     {
+        //TODO
         if ($this->getUsername() == 'admin')
         {
             $this->setRoles('ROLE_ADMIN');
